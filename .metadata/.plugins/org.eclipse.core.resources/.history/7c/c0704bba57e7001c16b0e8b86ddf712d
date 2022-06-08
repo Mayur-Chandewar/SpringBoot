@@ -1,0 +1,43 @@
+package com.institute.repository;
+
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Map;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+import com.institute.bean.StudentBean;
+
+@Repository
+public class StudentInquiryRepository {
+
+	@Autowired
+	JdbcTemplate template;
+
+	//Save Student Inquiry
+	public int saveStudentInquiry(StudentBean bean) {
+		String query= "insert studentinquiry values(0,?,?,?,?,?,?,?,?)";
+		LocalDate date = LocalDate.now();
+		Object data[]= {bean.getName(),bean.getContact(),bean.getEmail(),bean.getCity(),bean.getHighQulification(),bean.getPassingYear(),bean.getInqFor(),date};
+		int count = template.update(query,data);
+		return count;
+	}
+
+	//View All Student Inquiry
+	public List getAllInquiry() {
+		String query= "select * from studentinquiry";
+		List records = template.queryForList(query);
+		return records;
+	}
+
+	public Map getStudentInquiryByCity(String city) {
+		String query="";
+		return null;
+	}
+	
+	
+	
+	
+}
